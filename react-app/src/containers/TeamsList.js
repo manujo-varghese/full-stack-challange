@@ -1,8 +1,7 @@
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-
+import Multiselect from 'multiselect-react-dropdown';
 const GET_TEAMS = gql`
   query {
     teams {
@@ -14,15 +13,24 @@ const GET_TEAMS = gql`
 
 export default function TeamsList(props) {
   const [value, setValue] = useState('');
-
- const handleChange = (event) => {
-   setValue(event.target.value);
-   props.onChange(event.target.value);
- };
+  const onSelect = (selectedList, selectedItem) => {
+  setValue(selectedList.map(item => item.id));
+  props.onChange(value);
+};
+const onRemove = (selectedList, selectedItem) => {
+  setValue(selectedList.map(item => item.id));
+  props.onChange(value);
+};
   const { data, loading } = useQuery(GET_TEAMS);
   return (
     
-    <><div> {loading ? ( <p>Loading teams</p> ): ( <select value={value} onChange={handleChange}> {data.teams.map((team) => ( <option value={team.id} key={team.id}>{team.name}</option> ))} </select> )} </div></>
-   
+    
+    <><div> {loading ? ( <p>Loading Teams</p> ): ( <Multiselect
+      options={data.teams} // Options to display in the dropdown
+      onSelect={onSelect} // Function will trigger on select event
+      onRemove={onRemove} // Function will trigger on remove event
+      displayValue="name" // Property name to display in the dropdown options
+      />
+        )} </div></>
   );
 }

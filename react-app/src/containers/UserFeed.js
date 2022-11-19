@@ -28,10 +28,10 @@ export default function UserFeed() {
     variables: {filter:{teamIds:teamValue,leagueIds:leagueValue,join:true} }
 });
   return (
-      <><div>
+      <><div style={{ display: "flex", gap: "1rem" }}>
         <TeamsList onChange={getTeamData}/>
         <LeaguesList onChange={getLeagueData}/>
-       
+        </div>
       {loading ? (
         <p>Loading</p>
       ) : (
@@ -39,7 +39,7 @@ export default function UserFeed() {
           {data.articlesInReverseChronological.map(article => (<article className="content" key={article.id}> <h2>{article.title}</h2> <Link to={`/article/${article.id}`}><img className="fakeimg" src={article.imageUrlString} alt='athletic'></img></Link> </article>))}
         </div></>
       )}
-    </div></>
+   </>
    
   );
 }
