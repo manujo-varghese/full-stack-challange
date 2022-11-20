@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const GET_SINGLE_ARTICLE = gql`
-  query getSingleArticle($articleId: ID!){
+  query article($articleId: ID!){
     article(articleId: $articleId) {
         id
         title
@@ -24,20 +24,21 @@ export default function Article() {
     variables: {articleId:articleId }
   });
   return (
+
     <div>
       {loading ? (
-        <p>Loading</p>
+        <p>Loading</p> 
       ) : (
-        <><div>
-            <h5 className="title">{data.article.title}</h5>
-            <div className="text-center">
-              <span className="tag">Team</span> <span className="author">{data.article.team.name}</span>
-            </div>
-            <img className="img" src={data.article.imageUrlString} alt='athletic'></img>
-          </div><div className="body">
-              {data.article.body}
-            </div></>
+      <><div>
+              <h5 className="title">{data.article.title}</h5>
+              <div className="text-center">
+                <span className="tag">Team</span> <span className="author">{data.article.team.name}</span>
+              </div>
+              <img className="img" src={data.article.imageUrlString} alt='athletic'></img>
+            </div><div className="body">
+                {data.article.body}
+              </div></>
         )}
     </div>
-      );
+   );
 }

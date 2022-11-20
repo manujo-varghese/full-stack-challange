@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import React from 'react';
 
 const GET_TEAMS = gql`
-  query {
+  query getTeams {
     teams {
       id
       createdAt

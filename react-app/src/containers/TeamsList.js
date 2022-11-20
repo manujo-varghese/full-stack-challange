@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import React, {useState} from 'react';
 import Multiselect from 'multiselect-react-dropdown';
 const GET_TEAMS = gql`
-  query {
+  query getTeams{
     teams {
         id
         name

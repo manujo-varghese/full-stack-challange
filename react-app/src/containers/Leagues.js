@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import React from 'react';
 
 const GET_LEAGUES = gql`
-  query {
+  query getLeagues {
     leagues{
         id
         name

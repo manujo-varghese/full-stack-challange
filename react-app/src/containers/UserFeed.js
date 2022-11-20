@@ -1,9 +1,10 @@
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
-import React, {useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import React, {useState } from 'react';
 import { Link } from 'react-router-dom';
 import TeamsList from './TeamsList';
 import LeaguesList from './LeagueList';
+
 const GET_ARTICLE_REVERSE = gql`
   query articlesInReverseChronological($filter: ArticlesFilters!){
     articlesInReverseChronological(filter: $filter) {
@@ -29,6 +30,7 @@ export default function UserFeed() {
 });
   return (
       <><div style={{ display: "flex", gap: "1rem" }}>
+        <h3> Select your favorite Teams and Leagues </h3>
         <TeamsList onChange={getTeamData}/>
         <LeaguesList onChange={getLeagueData}/>
         </div>

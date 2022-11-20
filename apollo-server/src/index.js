@@ -26,3 +26,10 @@ server.applyMiddleware({ app });
 app.listen({ port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
+
+if (module.hot) {
+  module.hot.accept();
+  module.hot.dispose(() => {
+    console.log("Module disposed");
+  });
+}

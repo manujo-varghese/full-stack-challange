@@ -1,6 +1,6 @@
 import './App.css';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
+
+import { ApolloClient,InMemoryCache, ApolloProvider } from '@apollo/client';
 import React from 'react';
 import Teams from './containers/Teams';
 import Articles from './containers/Articles';
@@ -11,6 +11,7 @@ import Article from './containers/Article';
 import UserFeed from './containers/UserFeed';
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql/',
+  cache: new InMemoryCache(),
 });
 
 function App() {

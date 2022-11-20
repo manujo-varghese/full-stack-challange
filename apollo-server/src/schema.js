@@ -1,6 +1,18 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+
+  enum CacheControlScope {
+    PUBLIC
+    PRIVATE
+  }
+
+  directive @cacheControl(
+    maxAge: Int
+    scope: CacheControlScope
+    inheritMaxAge: Boolean
+  ) on FIELD_DEFINITION | OBJECT | INTERFACE | UNION
+
   type League {
     id: ID!
     name: String!
@@ -22,9 +34,9 @@ const typeDefs = gql`
     updatedAt: String
   }
 
-  type Article{
+  type Article @cacheControl(maxAge: 240){
     id: ID!
-    imageUrlString: String!
+    imageUrlString: String! @cacheControl(maxAge: 30)
     team: Team!
     league: League!
     title: String!
@@ -33,7 +45,7 @@ const typeDefs = gql`
     createdAt: String!
     deletedAt: String
     updatedAt: String
-    body: String!
+    body: String! @cacheControl(maxAge: 10, scope: PRIVATE)
   }
   
   type Author{
